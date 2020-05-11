@@ -11,11 +11,10 @@ public class NameControllerTest {
 
     @Test
     public void testNameSupplied() throws Exception {
-        String url = UriBuilder.of("/").queryParam("name", "sergio").build().toString();
-
         try (Function function = new Function()) {
             HttpRequestMessageBuilder.AzureHttpResponseMessage response =
-                function.request(HttpMethod.GET, url)
+                function.request(HttpMethod.GET, "/")
+                        .parameter("name", "sergio")
                         .invoke();
             assertEquals(HttpStatus.OK, response.getStatus());
             assertEquals("Sergio", response.getBodyAsString());
